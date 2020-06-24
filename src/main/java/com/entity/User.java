@@ -2,9 +2,10 @@ package com.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "user311")
+@Table(name = "311_user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 20160624090101L;
@@ -12,23 +13,22 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer age;
     private String name;
+    private String password;
 
     public User() {
     }
 
-    public User(Integer age, String name) {
-        this.age = age;
+    public User(String name, String password) {
         this.name = name;
+        this.password = password;
     }
 
-    public Integer getAge() {
-        return age;
-    }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    @Override
+    public String toString() {
+        return "User {id: " + id + ", " +
+                "name: " + name + "}";
     }
 
     public Long getId() {
@@ -45,5 +45,13 @@ public class User implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

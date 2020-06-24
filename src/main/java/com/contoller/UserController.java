@@ -5,7 +5,11 @@ import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -25,6 +29,13 @@ public class UserController {
     public String saveUser(@ModelAttribute(name = "newUser") User user) {
         service.addUser(user);
         System.out.println(user.getName());
-        return "index";
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String listPage(ModelMap modelMap) {
+        List<User> list = service.getAllUsers();
+        modelMap.addAttribute("list", list);
+        return "list";
     }
 }
