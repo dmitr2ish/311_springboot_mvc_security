@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -58,4 +57,15 @@ public class AdminController {
         return "redirect:/admin/list";
     }
 
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteUser(@ModelAttribute(name = "user") User user) {
+        service.deleteById(user.getId());
+        return "redirect:/admin/list";
+    }
+
+    @RequestMapping(value = "deleteall")
+    public String deleteAllUsers() {
+        service.deleteAll();
+        return "redirect:/admin/list";
+    }
 }
