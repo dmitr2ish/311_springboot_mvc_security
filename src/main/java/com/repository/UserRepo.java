@@ -11,7 +11,6 @@ public interface UserRepo {
     User getByName(String name);
     List<User> getAllUsers();
     boolean isExist(User user);
-    void update(User user);
-    void deleteById(Long id);
+    void delete(User user);
     void deleteAll();
 }

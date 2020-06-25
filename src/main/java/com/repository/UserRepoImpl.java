@@ -15,7 +15,12 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public void addUser(User user) {
-        manager.persist(user);
+        if (user.getId() == null) {
+            manager.persist(user);
+        } else {
+            manager.merge(user);
+        }
+        System.out.println("user saved with id: " + user.getId());
     }
 
     @Override
@@ -30,18 +35,10 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
-    public void update(User user) {
-        manager.createQuery("update User set name = :name, password = :password where id = :id")
-        .setParameter("id",user.getId())
-        .setParameter("name", user.getName())
-        .setParameter("password", user.getPassword())
-        .executeUpdate();
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        User user = getById(id);
-        manager.remove(user);
+    public void delete(User user) {
+        User mergedUser = manager.merge(user);
+        manager.remove(mergedUser);
+        System.out.println("User with id: " + mergedUser.getId() + " deleted successfully");
     }
 
     @Override

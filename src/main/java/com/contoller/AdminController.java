@@ -55,7 +55,6 @@ public class AdminController {
         }
         user.setRoles(roleList);
         service.addUser(user);
-        System.out.println(user.toString());
         return "redirect:/admin/list";
     }
 
@@ -67,14 +66,28 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateUser(@ModelAttribute(name = "user") User user) {
+    public String updateUser(@ModelAttribute(name = "user") User user,
+                             @RequestParam("option") String flag) {
+        List<Role> roleList = (user.getRoles() == null) ? new ArrayList<>() : user.getRoles();
+        Role adminRole = service.getRoleByName("ADMIN");
+        Role userRole = service.getRoleByName("USER");
+        //TODO if переделать на switch
+        if (flag.equals("ADMIN")) {
+            roleList.add(adminRole);
+        } else if (flag.equals("USER")) {
+            roleList.add(userRole);
+        } else if (flag.equals("ADMIN,USER")) {
+            roleList.add(adminRole);
+            roleList.add(userRole);
+        }
+        user.setRoles(roleList);
         service.update(user);
         return "redirect:/admin/list";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteUser(@ModelAttribute(name = "user") User user) {
-        service.deleteById(user.getId());
+        service.delete(user);
         return "redirect:/admin/list";
     }
 
