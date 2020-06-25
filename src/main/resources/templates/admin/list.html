@@ -15,11 +15,17 @@
         <td><span th:text="${user.id}">id</span></td>
         <td><span th:text="${user.name}">name</span></td>
         <td><span th:text="${user.password}">password</span></td>
+        <td>
+         <form th:action="@{/admin/edit}" method="post">
+              <input type="text" hidden name="id" th:value="${user.id}">
+                <input type="submit" value="Edit">
+            </form>
+        </td>
     </tr>
 </table>
 
-<button onclick="location.href='/register'">go to registration</button>
-<button onclick="location.href='/deletealll'">delete all users</button>
+<button onclick="location.href='/admin/register'">go to registration</button>
+<button onclick="location.href='/admin/deletealll'">delete all users</button>
 <button onclick="location.href='/logout'">logout</button>
 </body>
 </html>

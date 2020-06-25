@@ -1,7 +1,6 @@
 package com.repository;
 
 import com.entity.User;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,22 +26,27 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public boolean isExist(User user) {
-        return false;
+        return manager.contains(user);
     }
 
     @Override
     public void update(User user) {
-
+        manager.createQuery("update User set name = :name, password = :password where id = :id")
+        .setParameter("id",user.getId())
+        .setParameter("name", user.getName())
+        .setParameter("password", user.getPassword())
+        .executeUpdate();
     }
 
     @Override
     public void deleteById(Long id) {
-
+        User user = getById(id);
+        manager.remove(user);
     }
 
     @Override
     public void deleteAll() {
-
+        manager.clear();
     }
 
     @Override
@@ -52,6 +56,6 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public User getByName(String name) {
-        return null;
+        return manager.find(User.class, name);
     }
 }
