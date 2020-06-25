@@ -16,15 +16,15 @@ public class RoleRepoImpl implements RoleRepo{
 
     @Override
     public Role getByName(String name) {
-        Role role = (Role) manager.createQuery("select c from User c where c.name = :name")
+        return manager.createQuery("select c from Role c where c.name = :name", Role.class)
                 .setParameter("name", name)
                 .getSingleResult();
-        return role;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Role> getAll() {
-        return manager.createQuery("select c from User c").getResultList();
+        return manager.createQuery("select c from Role c").getResultList();
     }
 
     @Override

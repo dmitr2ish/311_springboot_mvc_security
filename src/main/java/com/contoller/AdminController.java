@@ -1,5 +1,6 @@
 package com.contoller;
 
+import com.entity.Role;
 import com.entity.User;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -38,7 +40,20 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveUser(@ModelAttribute(name = "newUser") User user) {
+    public String saveUser(@ModelAttribute(name = "newUser") User user,  @RequestParam("option") String flag) {
+        Role adminRole = service.getRoleByName("ADMIN");
+        Role userRole = service.getRoleByName("USER");
+        List<Role> roleList = new ArrayList<>();
+        //TODO if переделать на switch
+        if (flag.equals("ADMIN")) {
+            roleList.add(adminRole);
+        } else if (flag.equals("USER")) {
+            roleList.add(userRole);
+        } else if (flag.equals("ADMIN,USER")) {
+            roleList.add(adminRole);
+            roleList.add(userRole);
+        }
+        user.setRoles(roleList);
         service.addUser(user);
         System.out.println(user.toString());
         return "redirect:/admin/list";

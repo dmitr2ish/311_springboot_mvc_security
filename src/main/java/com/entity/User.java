@@ -48,13 +48,13 @@ public class User implements Serializable {
         return listRole.toString();
     }
 
-    @Override
-    public String toString() {
-        return "User {id: " + id + ", " +
-                "name: " + name +
-                ", Roles: {" + listRolesToString() + "}" +
-                "}";
-    }
+//    @Override
+//    public String toString() {
+//        return "User {id: " + id + ", " +
+//                "name: " + name +
+//                ", Roles: {" + listRolesToString() + "}" +
+//                "}";
+//    }
 
     public Long getId() {
         return id;
