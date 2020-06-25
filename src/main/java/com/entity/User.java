@@ -36,11 +36,24 @@ public class User implements Serializable {
         this.roles = roles;
     }
 
+    public String listRolesToString() {
+        StringBuilder listRole = new StringBuilder();
+        for(int i = 0; i < roles.size(); i++){
+            if (i == roles.size()-1) {
+                listRole.append(roles.get(i).getName());
+                break;
+            }
+            listRole.append(", ");
+        }
+        return listRole.toString();
+    }
 
     @Override
     public String toString() {
         return "User {id: " + id + ", " +
-                "name: " + name + "}";
+                "name: " + name +
+                ", Roles: {" + listRolesToString() + "}" +
+                "}";
     }
 
     public Long getId() {

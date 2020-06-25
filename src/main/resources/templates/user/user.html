@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>user page</title>
+</head>
+<body>
+<h1>It's User page</h1>
+<span th:object="${user}"/>
+<table border="1">
+    <tr>
+        <td>id</td>
+        <td>name</td>
+        <td>roles</td>
+    </tr>
+
+    <tr>
+        <td><span th:text="${user.id}" /></td>
+        <td><span th:text="${user.name}" /></td>
+        <td><span th:text="${user.listRolesToString()}" /></td>
+    </tr>
+</table>
+
+</body>
+</html>

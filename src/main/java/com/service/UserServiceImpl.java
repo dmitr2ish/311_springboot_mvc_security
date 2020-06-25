@@ -2,6 +2,7 @@ package com.service;
 
 import com.entity.Role;
 import com.entity.User;
+import com.repository.RoleRepo;
 import com.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,50 +15,53 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepo repo;
+    private UserRepo userRepo;
+
+    @Autowired
+    private RoleRepo roleRepo;
 
     @Override
     public void addUser(User user) {
-        repo.addUser(user);
+        userRepo.addUser(user);
     }
 
     @Override
     public User getById(Long id) {
-        return repo.getById(id);
+        return userRepo.getById(id);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return repo.getAllUsers();
+        return userRepo.getAllUsers();
     }
 
     @Override
     public void update(User user) {
-        repo.update(user);
+        userRepo.update(user);
     }
 
     @Override
     public void deleteById(Long id) {
-        repo.deleteById(id);
+        userRepo.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-        repo.deleteAll();
+        userRepo.deleteAll();
     }
 
     @Override
     public Role getRoleByName(String name) {
-        return null;
+        return roleRepo.getByName(name);
     }
 
     @Override
     public List<Role> getAllRoles() {
-        return null;
+        return roleRepo.getAll();
     }
 
     @Override
     public void addRole(Role role) {
-
+        roleRepo.add(role);
     }
 }
