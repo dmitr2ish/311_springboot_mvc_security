@@ -9,7 +9,7 @@
 
 <form action="#" th:action="@{/admin/update}" th:object="${user}" method="post">
     <table border="1">
-        <tr>
+        <tr hidden>
             <th>id</th>
             <td>
                 <input type="text" th:field="*{id}">
@@ -42,8 +42,8 @@
             <th>buttons</th>
 
             <td>
-                <input type="reset" value="Reset"/>
                 <input type="submit" value="Submit"/>
+                <input type="reset" value="Reset"/>
             </td>
         </tr>
     </table>

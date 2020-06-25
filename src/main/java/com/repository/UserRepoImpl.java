@@ -43,7 +43,7 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public void deleteAll() {
-        manager.clear();
+        manager.createQuery("delete from User").executeUpdate();
     }
 
     @Override
