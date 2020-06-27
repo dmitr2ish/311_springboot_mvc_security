@@ -17,13 +17,13 @@
 
             <tr>
                 <th>pass</th>
-                <td><input type="text" th:field="*{password}"/></td>
+                <td><input type="password" th:field="*{password}"/></td>
                 <small style="color: red" th:each="err : ${#fields.errors('password')}" >Validation error</small>
             </tr>
 
             <tr>
                 <th>confirm pass</th>
-                <td><input type="text" th:field="*{repeatPassword}"/></td>
+                <td><input type="password" th:field="*{repeatPassword}"/></td>
                 <small style="color: red" th:each="err : ${#fields.errors('repeatPassword')}">Validation error</small>
             </tr>
 
