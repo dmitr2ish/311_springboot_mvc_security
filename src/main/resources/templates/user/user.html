@@ -6,8 +6,7 @@
 </head>
 <body>
 <h1>It's User page</h1>
-<span th:object="${user}"/>
-<table border="1">
+<table border="1" th:object="${user}">
     <tr>
         <td>id</td>
         <td>name</td>
@@ -20,7 +19,5 @@
         <td><span th:text="${user.listRolesToString()}" /></td>
     </tr>
 </table>
-
-<button onclick="location.href='/logout'">Logout</button>
 </body>
 </html>

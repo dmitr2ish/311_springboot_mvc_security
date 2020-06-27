@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>registration page</title>
+</head>
+<body>
+    <h1>Hello it's registration page</h1>
+
+    <form th:action="@{/reg}" th:object="${user}" method="post">
+        <table border="1">
+            <tr>
+                <th>name</th>
+                <td><input type="text" th:field="*{name}"/></td>
+                <small style="color: red" th:each="err : ${#fields.errors('name')}">Validation error</small>
+            </tr>
+
+            <tr>
+                <th>pass</th>
+                <td><input type="text" th:field="*{password}"/></td>
+                <small style="color: red" th:each="err : ${#fields.errors('password')}" >Validation error</small>
+            </tr>
+
+            <tr>
+                <th>confirm pass</th>
+                <td><input type="text" th:field="*{repeatPassword}"/></td>
+                <small style="color: red" th:each="err : ${#fields.errors('repeatPassword')}">Validation error</small>
+            </tr>
+
+            <tr>
+                <th>roles</th>
+                <td>
+                    <label><input type="checkbox" name="option" value="ADMIN">Admin</label>
+                    <label><input type="checkbox" name="option" value="USER">User</label>
+                </td>
+            </tr>
+
+            <tr>
+                <th>buttons</th>
+                <td>
+                    <button type="submit" >Send</button>
+                    <button type="reset" >Reset</button>
+                </td>
+
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

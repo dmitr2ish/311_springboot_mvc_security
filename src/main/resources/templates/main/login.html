@@ -1,11 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>login page</title>
 </head>
 <body>
-    <h1>Its login page</h1>
+<h1>It's login page</h1>
 
-    <button onclick="location.href='/'">go to main menu</button>
+<form th:action="@{/authenticateTheUser}" method="post">
+    <table border="1">
+        <tr>
+            <th>
+                <label>Name of User</label>
+            </th>
+
+            <td>
+                <input type="text" name="j_username" placeholder="enter username">
+            </td>
+
+            <td>
+                <small style="color: red">error name</small>
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                <label>password of User</label>
+            </th>
+
+            <td>
+                <input type="password" name="j_password" placeholder="enter pass">
+            </td>
+
+            <td>
+                <small style="color: red">error pass</small>
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+
+            </th>
+
+            <td>
+                <button type="submit">Login</button>
+
+                <a th:href="@{/reg}">Registration</a>
+            </td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>

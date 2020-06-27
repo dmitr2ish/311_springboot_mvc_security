@@ -6,6 +6,8 @@ import com.entity.User;
 import java.util.List;
 
 public interface UserService {
+    //TODO сделать отдельный интерфейс для UserRepr
+    void createUser(UserRepr userRepr);
     void addUser(User user);
     User getById(Long id);
     List<User> getAllUsers();

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Main page</title>
@@ -7,8 +7,18 @@
 <body>
 <h1>It's Main page</h1>
 
-<button onclick="location.href='/login'">go to login</button>
-<button onclick="location.href='/admin/'">go to admin page (if you have admin's rights)</button>
-<button onclick="location.href='/user'">go to your page</button>
+<div>
+
+    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+        <button onclick="location.href='/admin/'">go to admin page (if you have admin's rights)</button>
+        <button onclick="location.href='/user'">go to your page</button>
+        <button>exit</button>
+    </form>
+
+<!--    <div sec:authorize="isAnonymous()">-->
+<!--        <a th:href="@{/login}">go to login</a>-->
+<!--    </div>-->
+</div>
+
 </body>
 </html>

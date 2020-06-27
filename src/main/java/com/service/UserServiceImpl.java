@@ -5,9 +5,11 @@ import com.entity.User;
 import com.repository.RoleRepo;
 import com.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,10 +17,23 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
+    private BCryptPasswordEncoder encoder;
+
+    @Autowired
     private UserRepo userRepo;
 
     @Autowired
     private RoleRepo roleRepo;
+
+    @Override
+    public void createUser(UserRepr userRepr) {
+        User user = new User();
+        user.setName(userRepr.getName());
+        user.setPassword(encoder.encode(userRepr.getPassword()));
+        user.setRoles(userRepr.getRoleList());
+        userRepo.addUser(user);
+    }
+
 
     @Override
     public void addUser(User user) {

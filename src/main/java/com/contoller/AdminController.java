@@ -31,33 +31,6 @@ public class AdminController {
         return "admin/list";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registerPage(Model model) {
-        User user = new User();
-        model.addAttribute("newUser", user);
-        return "admin/registration";
-
-    }
-
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveUser(@ModelAttribute(name = "newUser") User user,  @RequestParam("option") String flag) {
-        Role adminRole = service.getRoleByName("ADMIN");
-        Role userRole = service.getRoleByName("USER");
-        List<Role> roleList = new ArrayList<>();
-        //TODO if переделать на switch
-        if (flag.equals("ADMIN")) {
-            roleList.add(adminRole);
-        } else if (flag.equals("USER")) {
-            roleList.add(userRole);
-        } else if (flag.equals("ADMIN,USER")) {
-            roleList.add(adminRole);
-            roleList.add(userRole);
-        }
-        user.setRoles(roleList);
-        service.addUser(user);
-        return "redirect:/admin/list";
-    }
-
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String editUser(@RequestParam(name = "id") Long id, ModelMap map) {
         User user = service.getById(id);
@@ -71,15 +44,28 @@ public class AdminController {
         List<Role> roleList = (user.getRoles() == null) ? new ArrayList<>() : user.getRoles();
         Role adminRole = service.getRoleByName("ADMIN");
         Role userRole = service.getRoleByName("USER");
-        //TODO if переделать на switch
-        if (flag.equals("ADMIN")) {
-            roleList.add(adminRole);
-        } else if (flag.equals("USER")) {
-            roleList.add(userRole);
-        } else if (flag.equals("ADMIN,USER")) {
-            roleList.add(adminRole);
-            roleList.add(userRole);
+
+        switch (flag) {
+            case "ADMIN":
+                roleList.add(adminRole);
+                break;
+            case "ADMIN,USER":
+                roleList.add(adminRole);
+                roleList.add(userRole);
+                break;
+            default:
+                roleList.add(userRole);
+                break;
         }
+
+//        if (flag.equals("ADMIN")) {
+//            roleList.add(adminRole);
+//        } else if (flag.equals("USER")) {
+//            roleList.add(userRole);
+//        } else if (flag.equals("ADMIN,USER")) {
+//            roleList.add(adminRole);
+//            roleList.add(userRole);
+//        }
         user.setRoles(roleList);
         service.update(user);
         return "redirect:/admin/list";

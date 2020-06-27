@@ -52,7 +52,11 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public User getByName(String name) {
-        return manager.find(User.class, name);
+        List<User> user = manager.createQuery("select c from User c where c.name = :name")
+                .setParameter("name", name)
+                .getResultList();
+        return user.get(0);
     }
 }
