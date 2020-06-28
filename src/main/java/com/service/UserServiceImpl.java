@@ -9,21 +9,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserReprService {
 
-    @Autowired
     private BCryptPasswordEncoder encoder;
 
-    @Autowired
     private UserRepo userRepo;
 
-    @Autowired
     private RoleRepo roleRepo;
+
+    @Autowired
+    public UserServiceImpl(BCryptPasswordEncoder encoder, UserRepo userRepo, RoleRepo roleRepo) {
+        this.encoder = encoder;
+        this.userRepo = userRepo;
+        this.roleRepo = roleRepo;
+    }
 
     @Override
     public void createUser(UserRepr userRepr) {
@@ -33,7 +36,6 @@ public class UserServiceImpl implements UserService {
         user.setRoles(userRepr.getRoleList());
         userRepo.addUser(user);
     }
-
 
     @Override
     public void addUser(User user) {

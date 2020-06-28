@@ -8,23 +8,23 @@
     <h1>Hello it's registration page</h1>
 
     <form th:action="@{/reg}" th:object="${user}" method="post">
-        <table border="1">
+        <table border="1" >
             <tr>
                 <th>name</th>
                 <td><input type="text" th:field="*{name}"/></td>
-                <small style="color: red" th:each="err : ${#fields.errors('name')}">Validation error</small>
+                <td style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Name error</td>
             </tr>
 
             <tr>
                 <th>pass</th>
                 <td><input type="password" th:field="*{password}"/></td>
-                <small style="color: red" th:each="err : ${#fields.errors('password')}" >Validation error</small>
+                <td style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"> pass error</td>
             </tr>
 
             <tr>
                 <th>confirm pass</th>
                 <td><input type="password" th:field="*{repeatPassword}"/></td>
-                <small style="color: red" th:each="err : ${#fields.errors('repeatPassword')}">Validation error</small>
+                <td style="color: red" th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}"> repeatPassword error</td>
             </tr>
 
             <tr>
@@ -41,7 +41,6 @@
                     <button type="submit" >Send</button>
                     <button type="reset" >Reset</button>
                 </td>
-
             </tr>
         </table>
     </form>

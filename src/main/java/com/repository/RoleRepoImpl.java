@@ -1,7 +1,6 @@
 package com.repository;
 
 import com.entity.Role;
-import com.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -9,10 +8,14 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-public class RoleRepoImpl implements RoleRepo{
+public class RoleRepoImpl implements RoleRepo {
+
+    private EntityManager manager;
 
     @Autowired
-    private EntityManager manager;
+    public RoleRepoImpl(EntityManager manager) {
+        this.manager = manager;
+    }
 
     @Override
     public Role getByName(String name) {

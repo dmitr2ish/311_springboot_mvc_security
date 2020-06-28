@@ -10,8 +10,12 @@ import java.util.List;
 @Repository
 public class UserRepoImpl implements UserRepo {
 
-    @Autowired
     private EntityManager manager;
+
+    @Autowired
+    public UserRepoImpl(EntityManager manager) {
+        this.manager = manager;
+    }
 
     @Override
     public void addUser(User user) {

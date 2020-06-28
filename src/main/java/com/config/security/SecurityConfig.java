@@ -73,19 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user/*").access("hasAuthority('USER')")
                 .anyRequest().authenticated();
-
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/reg").permitAll()
-//                .antMatchers("/**").authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .loginProcessingUrl("/authenticateTheUser")
-//                .and()
-//                .logout()
-//                .logoutSuccessUrl("/login").permitAll();
     }
 
     @Bean

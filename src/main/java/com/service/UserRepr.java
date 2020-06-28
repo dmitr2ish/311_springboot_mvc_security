@@ -2,19 +2,21 @@ package com.service;
 
 import com.entity.Role;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class UserRepr {
     private Long id;
     @NotBlank
+    @Size(min = 2, max = 30)
     private String name;
     @NotBlank
+    @Min(6)
     private String password;
     @NotBlank
+    @Min(6)
     private String repeatPassword;
 
     private List<Role> roleList;

@@ -5,20 +5,14 @@
     <title>Main page</title>
 </head>
 <body>
-<h1>It's Main page</h1>
+    <h1>It's Main page</h1>
 
-<div>
-
-    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-        <button onclick="location.href='/admin/'">go to admin page (if you have admin's rights)</button>
-        <button onclick="location.href='/user'">go to your page</button>
-        <button>exit</button>
-    </form>
-
-<!--    <div sec:authorize="isAnonymous()">-->
-<!--        <a th:href="@{/login}">go to login</a>-->
-<!--    </div>-->
-</div>
-
+    <div>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+            <button onclick="location.href='/admin/'">go to admin page (if you have admin's rights)</button>
+            <button onclick="location.href='/user'">go to your page</button>
+            <button>exit</button>
+        </form>
+    </div>
 </body>
 </html>

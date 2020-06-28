@@ -42,8 +42,8 @@ public class User implements Serializable, UserDetails {
 
     public String listRolesToString() {
         StringBuilder listRole = new StringBuilder();
-        for(int i = 0; i < roles.size(); i++){
-            if (i == roles.size()-1) {
+        for (int i = 0; i < roles.size(); i++) {
+            if (i == roles.size() - 1) {
                 listRole.append(roles.get(i).getName());
                 break;
             }

@@ -2,6 +2,7 @@ package com.contoller;
 
 import com.entity.Role;
 import com.service.UserRepr;
+import com.service.UserReprService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +20,15 @@ import java.util.List;
 @Controller
 public class MainController {
 
-    @Autowired
     private UserService service;
+
+    private UserReprService reprService;
+
+    @Autowired
+    public MainController(UserService service, UserReprService reprService) {
+        this.service = service;
+        this.reprService = reprService;
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String indexPage() {
@@ -44,12 +52,12 @@ public class MainController {
                            @RequestParam("option") String flag) {
         if (bindingResult.hasErrors()) {
             //если есть ошибки на странице остаемся на той же странице
-            return "main/reg";
+            return "redirect:reg";
         }
         if (!userRepr.getPassword().equals(userRepr.getRepeatPassword())) {
             //если пароли не совпадают генерим ошибку и остаемся на странице
-            bindingResult.rejectValue("password", "", "Парольи не совпадают");
-            return "main/reg";
+            bindingResult.rejectValue("password", "", "Пароли не совпадают");
+            return "redirect:reg";
         }
 
         Role adminRole = service.getRoleByName("ADMIN");
@@ -72,8 +80,8 @@ public class MainController {
 
         userRepr.setRoleList(roleList);
 
-        service.createUser(userRepr);
-        return "redirect:login";
+        reprService.createUser(userRepr);
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
