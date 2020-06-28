@@ -23,7 +23,7 @@
             </td>
         </tr>
 
-        <tr>
+        <tr hidden>
             <th>pass</th>
             <td>
                <input type="text" th:field="*{password}"/>
@@ -44,6 +44,7 @@
             <td>
                 <input type="submit" value="Submit"/>
                 <input type="reset" value="Reset"/>
+                <button onclick="location.href='/admin/list'">Back</button>
             </td>
         </tr>
     </table>

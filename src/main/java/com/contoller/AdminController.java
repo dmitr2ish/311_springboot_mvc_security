@@ -58,14 +58,6 @@ public class AdminController {
                 break;
         }
 
-//        if (flag.equals("ADMIN")) {
-//            roleList.add(adminRole);
-//        } else if (flag.equals("USER")) {
-//            roleList.add(userRole);
-//        } else if (flag.equals("ADMIN,USER")) {
-//            roleList.add(adminRole);
-//            roleList.add(userRole);
-//        }
         user.setRoles(roleList);
         service.update(user);
         return "redirect:/admin/list";

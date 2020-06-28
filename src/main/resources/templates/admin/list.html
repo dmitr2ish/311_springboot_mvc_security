@@ -8,7 +8,7 @@
 <h1>Hello it's users's list page</h1>
 <table border="1">
     <tr th:if="${list.isEmpty()}">
-        <td colspan="2"> no users in database </td>
+        <td colspan="2" style="color: red"> no users in database </td>
     </tr>
 
     <tr th:each="user : ${list}">
@@ -16,7 +16,7 @@
 
         <td><span th:text="${user.name}">name</span></td>
 
-        <td><span hidden th:text="${user.password}">password</span></td>
+        <td hidden ><span th:text="${user.password}">password</span></td>
 
         <td><span th:text="${user.listRolesToString()}">roles</span></td>
 
@@ -36,8 +36,7 @@
     </tr>
 </table>
 
-<button onclick="location.href='/admin/register'">go to registration</button>
 <button onclick="location.href='/admin/deleteall'">delete all users</button>
-<button onclick="location.href='/logout'">logout</button>
+<button onclick="location.href='/logout'">Exit</button>
 </body>
 </html>
