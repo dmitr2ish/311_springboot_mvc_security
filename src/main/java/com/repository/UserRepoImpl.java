@@ -24,7 +24,6 @@ public class UserRepoImpl implements UserRepo {
         } else {
             manager.merge(user);
         }
-        System.out.println("user saved with id: " + user.getId());
     }
 
     @Override
@@ -42,7 +41,6 @@ public class UserRepoImpl implements UserRepo {
     public void delete(User user) {
         User mergedUser = manager.merge(user);
         manager.remove(mergedUser);
-        System.out.println("User with id: " + mergedUser.getId() + " deleted successfully");
     }
 
     @Override
