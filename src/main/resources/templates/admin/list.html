@@ -3,155 +3,217 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta   name="viewport" 
-            content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link   rel="stylesheet" 
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
-            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
-            crossorigin="anonymous">
-    
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+
     <style>
+        body {
+            width: 100%;
+        }
+
+        .row {
+            margin: 0 0 0 0;
+        }
+
         .container-fluid {
             padding: 0;
             height: 100%;
         }
 
+        .username {
+            font-weight: bolder;
+        }
+
+        .navbar {
+            padding: 2px 7px 0 20px;
+        }
+
+        .sidebar {
+            padding-top: 19px;
+            width: 237px;
+            background-color: #ffffff;
+            padding: 25px 0 0 0;
+        }
+
+        .content {
+            background-color: #f8f9fa;
+            height: 899px;
+        }
+
+        .admin_panel {
+            margin-bottom: 11px;
+        }
+
+        .buttons_panel {
+        }
+
+        .user_table_button {
+        }
+
+        .btn-secondary,
+        .btn-secondary:not(:disabled):not(.disabled):active,
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            border-color: #dee2e6;
+        }
+
+        .tables_name_panel {
+            padding: 14px 0 0 19px;
+            background-color: #f7f7f7;
+        }
+
+        .table_container {
+            padding: 1.5rem;
+            margin-right: 0;
+            margin-left: 0;
+            border-width: .2rem;
+            background-color: #fff;
+        }
     </style>
 
     <title>Users' list page</title>
 </head>
 <body>
-<table th:object="${user}">
-    <tr>
-        <td><span th:text="*{name}" /></td>
-        <td>with roles</td>
-        <td><span th:text="*{listRolesToString()}" /></td>
-    </tr>
-</table>
-
-<button type="button"
-        class="btn btn-secondary"
-        onclick="location.href='/reg'">New User
-</button>
-
-
-
-
-
-
-
+<!-- Общий контейнер -->
 <div class="container-fluid">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">
-                        admin@mail.ru with roles: ADMIN USER
-                    </th>
+    <!-- Полоска навигации -->
+    <nav class="navbar navbar-dark bg-dark">
+        <table th:object="${user}">
+            <tr class="navbar-brand">
+                <td><span class="username" th:text="*{name}"/></td>
+                <td>with roles</td>
+                <td><span th:text="*{listRolesToString()}"/></td>
+            </tr>
+        </table>
 
-                    <th scope="col">
-                        <button type="button" 
-                            class="btn btn-secondary" 
-                            onclick="location.href='/logout'">Logout
-                        </button>   
-                    </th>
-                </tr>
-            </thead>
+        <form class="form-inline">
+            <button type="button" class="btn btn-link my-2 my-sm-0" onclick="location.href='/logout'">Logout</button>
+        </form>
+    </nav>
 
-            <tbody>
-                <tr>
-                    <th scope="row">
-                        <div class="row">
-                            <div class="col">
-                                <button class="btn btn-primary btn-lg btn-block" 
-                                        onclick="location.href='/admin/list'">Admin
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
+    <div class="container-fluid">
+        <!-- Полоска контента -->
+        <div class="row">
+            <!-- сайдбар -->
+            <div class="col-auto sidebar">
+                <div class="row">
+                    <button type="button" class="btn btn-primary btn-block" onclick="location.href='/admin/list'">
+                        Admin
+                    </button>
+                </div>
 
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <button class="btn btn-link"
-                                        onclick="location.href='/user/'">User from User
-                                </button>
-                            </div>
-                    </th>
+                <div class="row">
+                    <button type="button" class="btn btn-link btn-block" onclick="location.href='/user/'">User</button>
+                </div>
+            </div>
 
-                    <td>
-                        <div class="row">
+            <!-- контент -->
+            <div class="col content">
+                <div class="container">
+                    <div class="row admin_panel">
+                        <h1>Admin panel</h1>
+                    </div>
 
-                        </div>
+                    <div class="row buttons_panel">
+                        <button type="button" class="btn btn-secondary user_table_button bg-white text-dark"
+                                onclick="location.href='/admin/list'">Users
+                            table
+                        </button>
 
-                        <div class="row">
-                            
-                        </div>
+                        <button type="button" class="btn btn-link" onclick="location.href='/reg'">New User</button>
+                    </div>
 
-                        <div class="row">
-                            
-                        </div>
+                    <div class="row tables_name_panel border">
+                        <h5>All users</h5>
+                    </div>
 
-
-
-                        <div class="row">
-                            <div class="col">
-                                <h1>Hello it's users's list page</h1>
-
-                                <table>
-                                    <tr th:if="${list.isEmpty()}">
-                                        <td colspan="2" style="color: #ff0000"> NO USERS IN DATABASE </td>
+                    <div class="row">
+                        <div class="table_container col">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">id</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
                                     </tr>
+                                </thead>
 
+                                <tbody>
                                     <tr th:each="user : ${list}">
-                                        <td><span th:text="${user.id}">id</span></td>
+                                        <th scope="row">
+                                            <span th:text="${user.id}"/>
+                                        </th>
 
-                                        <td><span th:text="${user.name}">name</span></td>
+                                        <td>
+                                            <span th:text="${user.name}"/>
+                                        </td>
 
-                                        <td hidden ><span th:text="${user.password}">password</span></td>
+                                        <td>-
 
-                                        <td><span th:text="${user.listRolesToString()}">roles</span></td>
+                                        </td>
+
+                                        <td>-
+
+                                        </td>
+
+                                        <td>-
+
+                                        </td>
+
+                                        <td>
+                                            <span th:text="${user.listRolesToString()}"/>
+                                        </td>
 
                                         <td>
                                             <form th:action="@{/admin/edit}" method="post">
                                                 <input type="text" hidden name="id" th:value="${user.id}">
-                                                <input type="submit" value="Edit">
+                                                <input class="btn btn-info" type="submit" value="Edit">
                                             </form>
                                         </td>
 
                                         <td>
                                             <form th:action="@{/admin/delete}" method="post">
                                                 <input type="text" hidden name="id" th:value="${user.id}">
-                                                <input type="submit" value="Delete">
+                                                <input class="btn btn-danger" type="submit" value="Delete">
                                             </form>
                                         </td>
                                     </tr>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous">
-    </script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous">
+</script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous">
-    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous">
+</script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous">
-    </script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous">
+</script>
 </body>
 </html>
