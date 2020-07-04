@@ -4,12 +4,15 @@ import com.entity.Role;
 import com.entity.User;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/admin/*")
@@ -28,9 +31,11 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String listPage(ModelMap modelMap) {
+    public String listPage(Authentication authentication, ModelMap modelMap) {
         List<User> list = service.getAllUsers();
+        User user = (User) authentication.getPrincipal();
         modelMap.addAttribute("list", list);
+        modelMap.addAttribute("user", user);
         return "admin/list";
     }
 

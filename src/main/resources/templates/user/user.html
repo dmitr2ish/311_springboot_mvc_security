@@ -14,9 +14,9 @@
     </tr>
 
     <tr>
-        <td><span th:text="${user.id}" /></td>
-        <td><span th:text="${user.name}" /></td>
-        <td><span th:text="${user.listRolesToString()}" /></td>
+        <td><span th:text="*{id}" /></td>
+        <td><span th:text="*{name}" /></td>
+        <td><span th:text="*{listRolesToString()}" /></td>
     </tr>
 </table>
 </body>

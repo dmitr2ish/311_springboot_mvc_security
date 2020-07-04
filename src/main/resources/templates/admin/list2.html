@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+
+    <style>
+        body {
+            width: 100%;
+        }
+
+        .row {
+            margin: 0 0 0 0;
+        }
+
+        .container-fluid {
+            padding: 0;
+            height: 100%;
+        }
+
+        .username {
+            font-weight: bolder;
+        }
+
+        .navbar {
+            padding: 2px 7px 0 20px;
+        }
+
+        .sidebar {
+            padding-top: 19px;
+            width: 237px;
+            background-color: #ffffff;
+            padding: 25px 0 0 0;
+        }
+
+        .content {
+            background-color: #f8f9fa;
+            height: 650px;
+        }
+
+        .admin_panel {
+            margin-bottom: 11px;
+        }
+
+        .buttons_panel {
+        }
+
+        .user_table_button {
+        }
+
+        .btn-secondary,
+        .btn-secondary:not(:disabled):not(.disabled):active,
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            border-color: #dee2e6;
+        }
+
+        .tables_name_panel {
+            padding: 14px 0 0 19px;
+            background-color: #f7f7f7;
+        }
+
+        .table_container {
+            padding: 1.5rem;
+            margin-right: 0;
+            margin-left: 0;
+            border-width: .2rem;
+            background-color: #fff;
+        }
+    </style>
+
+    <title>Users' list page</title>
+</head>
+<body>
+<!-- Общий контейнер -->
+<div class="container-fluid">
+    <!-- Полоска навигации -->
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand">
+            <span class="username">admin@mail.ru</span> with roles: ADMIN USER
+        </a>
+
+        <form class="form-inline">
+            <button class="btn btn-link my-2 my-sm-0" type="submit">Logout</button>
+        </form>
+    </nav>
+
+    <div class="container-fluid">
+        <!-- Полоска контента -->
+        <div class="row">
+
+            <!-- сайдбар -->
+            <div class="col-auto sidebar">
+                <div class="row">
+                    <button type="button" class="btn btn-primary btn-block">Admin</button>
+                </div>
+
+                <div class="row">
+                    <button type="button" class="btn btn-link btn-block">User</button>
+                </div>
+            </div>
+
+            <!-- контент -->
+            <div class="col content">
+                <div class="container">
+                    <div class="row admin_panel">
+                        <h1>Admin panel</h1>
+                    </div>
+
+                    <div class="row buttons_panel">
+                        <button type="button" class="btn btn-secondary user_table_button bg-white text-dark ">Users
+                            table
+                        </button>
+
+                        <button type="button" class="btn btn-link">New User</button>
+                    </div>
+
+                    <div class="row tables_name_panel border">
+                        <h5>All users</h5>
+                    </div>
+
+                    <div class="row">
+                        <div class="table_container col">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">id</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Role</th>
+                                    <th scope="col">Edit</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>admin</td>
+                                    <td>admin</td>
+                                    <td>35</td>
+                                    <td>admin@mail.ru</td>
+                                    <td>ADMIN USER</td>
+                                    <td>
+                                        <button type="button" class="btn btn-info">Info</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger">Danger</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>user</td>
+                                    <td>user</td>
+                                    <td>30</td>
+                                    <td>admin@mail.ru</td>
+                                    <td>ADMIN USER</td>
+                                    <td>
+                                        <button type="button" class="btn btn-info">Info</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger">Danger</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous">
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous">
+</script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>

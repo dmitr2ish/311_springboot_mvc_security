@@ -7,7 +7,7 @@
 <body>
     <h1>This is Edit page</h1>
 
-    <form action="#" th:action="@{/static/css/admin/update}" th:object="${user}" method="post">
+    <form action="#" th:action="@{/admin/update}" th:object="${user}" method="post">
         <table border="1">
             <tr hidden>
                 <th>id</th>
@@ -44,7 +44,7 @@
                 <td>
                     <input type="submit" value="Submit"/>
                     <input type="reset" value="Reset"/>
-                    <a style="text-decoration: none" href="/static/css/admin/list">Back</a>
+                    <a style="text-decoration: none" href="/admin/list">Back</a>
                 </td>
             </tr>
         </table>

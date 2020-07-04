@@ -9,7 +9,7 @@
 
     <div>
         <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-            <button onclick="location.href='../../static/css/admin/'">go to admin page (if you have admin's rights)</button>
+            <button onclick="location.href='../../static/styles/admin/'">go to admin page (if you have admin's rights)</button>
             <button onclick="location.href='/user'">go to your page</button>
             <button>exit</button>
         </form>
