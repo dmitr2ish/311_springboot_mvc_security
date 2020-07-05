@@ -1,12 +1,15 @@
 package com.contoller;
 
 import com.entity.Role;
+import com.entity.User;
 import com.service.UserRepr;
 import com.service.UserReprService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +33,22 @@ public class MainController {
         this.reprService = reprService;
     }
 
+    @RequestMapping(value = "/secretadminpage", method = RequestMethod.GET)
+    public String secretPage() {
+        service.addRole(new Role("ADMIN"));
+        service.addRole(new Role("USER"));
+        UserRepr user = new UserRepr();
+        user.setFirstName("test");
+        user.setLastName("test");
+        user.setEmail("test@test.ru");
+        user.setPassword("test");
+        user.setRepeatPassword("test");
+        user.setAge((byte)18);
+        user.setRoleList(service.getAllRoles());
+        reprService.createUser(user);
+        return "redirect:/login";
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String indexPage() {
         return "main/index";
@@ -41,7 +60,9 @@ public class MainController {
     }
 
     @RequestMapping(value = "/reg", method = RequestMethod.GET)
-    public String registerPage(Model model) {
+    public String registerPage(Model model, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        model.addAttribute("principal", user);
         model.addAttribute("user", new UserRepr());
         return "main/reg";
     }
@@ -49,7 +70,7 @@ public class MainController {
     @RequestMapping(value = "/reg", method = RequestMethod.POST)
     public String saveUser(@Valid UserRepr userRepr,
                            BindingResult bindingResult,
-                           @RequestParam("option") String flag) {
+                            @RequestParam(required=false, value = "flag") String flag) {
         if (bindingResult.hasErrors()) {
             //если есть ошибки на странице остаемся на той же странице
             return "redirect:reg";
@@ -81,7 +102,7 @@ public class MainController {
         userRepr.setRoleList(roleList);
 
         reprService.createUser(userRepr);
-        return "redirect:/login";
+        return "redirect:/admin/list";
     }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)

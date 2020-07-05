@@ -86,7 +86,7 @@
     <nav class="navbar navbar-dark bg-dark">
         <table th:object="${user}">
             <tr class="navbar-brand">
-                <td><span class="username" th:text="*{name}"/></td>
+                <td><span class="username" th:text="*{email}"/></td>
                 <td>with roles</td>
                 <td><span th:text="*{listRolesToString()}"/></td>
             </tr>
@@ -156,19 +156,19 @@
                                         </th>
 
                                         <td>
-                                            <span th:text="${user.name}"/>
+                                            <span th:text="${user.firstName}"/>
                                         </td>
 
-                                        <td>-
-
+                                        <td>
+                                            <span th:text="${user.lastName}"/>
                                         </td>
 
-                                        <td>-
-
+                                        <td>
+                                            <span th:text="${user.age}"/>
                                         </td>
 
-                                        <td>-
-
+                                        <td>
+                                            <span th:text="${user.email}"/>
                                         </td>
 
                                         <td>

@@ -30,10 +30,14 @@ public class UserServiceImpl implements UserService, UserReprService {
 
     @Override
     public void createUser(UserRepr userRepr) {
-        User user = new User();
-        user.setName(userRepr.getName());
-        user.setPassword(encoder.encode(userRepr.getPassword()));
-        user.setRoles(userRepr.getRoleList());
+        User user = new User(
+                userRepr.getFirstName(),
+                userRepr.getLastName(),
+                userRepr.getAge(),
+                userRepr.getEmail(),
+                encoder.encode(userRepr.getPassword()),
+                userRepr.getRoleList());
+
         userRepo.addUser(user);
     }
 

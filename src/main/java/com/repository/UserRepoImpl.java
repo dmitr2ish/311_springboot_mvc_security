@@ -55,9 +55,9 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     @SuppressWarnings("unchecked")
-    public User getByName(String name) {
-        List<User> user = manager.createQuery("select c from User c where c.name = :name")
-                .setParameter("name", name)
+    public User getByEmail(String email) {
+        List<User> user = manager.createQuery("select c from User c where c.email = :email")
+                .setParameter("email", email)
                 .getResultList();
         return user.get(0);
     }

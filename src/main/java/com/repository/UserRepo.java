@@ -9,7 +9,7 @@ public interface UserRepo {
 
     User getById(Long id);
 
-    User getByName(String name);
+    User getByEmail(String email);
 
     List<User> getAllUsers();
 
