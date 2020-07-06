@@ -22,10 +22,10 @@ public class UserRepr {
     @Email
     private String email;
     @NotBlank
-    @Min(6)
+    @Min(3)
     private String password;
     @NotBlank
-    @Min(6)
+    @Min(3)
     private String repeatPassword;
     private List<Role> roleList;
 
