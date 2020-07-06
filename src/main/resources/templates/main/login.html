@@ -26,74 +26,11 @@
     <title>Login page</title>
 </head>
 <body>
-<div class="row">
-    <div class="col-md-12">
-        <button class="btn btn-success open-cart">Open</button>
-
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Launch demo modal
-        </button>
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="card">
-                                        <img src="https://picsum.photos/800" class="card-img-top" alt="...">
-
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">Some quick example text to build on the card title and
-                                                make up the bulk of the card's content.</p>
-                                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="card">
-                                        <img src="https://picsum.photos/800" class="card-img-top" alt="...">
-
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-
-                                            <p class="card-text">Some quick example text to build on the card title and
-                                                make up the bulk of the card's content.</p>
-                                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3 mr-auto ml-auto my-5">
             <form th:action="@{/authenticateTheUser}" method="post">
-                <h3 class="mt-5">Please sign in</h3>
+                <h3 class="mt-5 font-weight-bold">Please sign in</h3>
                 <!-- name -->
                 <div class="form-group">
                     <input type="text" class="form-control" name="j_username" placeholder="Email address">
@@ -109,7 +46,6 @@
     </div>
 </div>
 
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -121,17 +57,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script>
-    $('.open-cart').on('click', function () {
-        $('#exampleModal').modal({
-            'backdrop': 'static',
-            'keyboard': false
-        });
-    });
-
-    // $('#exampleModal').on('shown.bs.modal', function (e) {
-    // alert('Окно открытось');
-    // });
-</script>
 </body>
 </html>

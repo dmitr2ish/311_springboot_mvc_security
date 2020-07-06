@@ -30,7 +30,7 @@ public class AdminController {
         return "admin/admin";
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping
     public String listPage(Authentication authentication, ModelMap modelMap) {
         List<User> list = service.getAllUsers();
         User user = (User) authentication.getPrincipal();

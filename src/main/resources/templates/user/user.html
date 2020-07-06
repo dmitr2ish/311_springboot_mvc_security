@@ -5,25 +5,26 @@
     <title>user page</title>
 </head>
 <body>
-<h1>It's User page</h1>
-<table border="1" th:object="${user}">
-    <tr>
-        <td>id</td>
-        <td>first name</td>
-        <td>last name</td>
-        <td>age</td>
-        <td>email</td>
-        <td>roles</td>
-    </tr>
+    <h1>It's User page</h1>
 
-    <tr>
-        <td><span th:text="*{id}" /></td>
-        <td><span th:text="*{firstName}" /></td>
-        <td><span th:text="*{lastName}" /></td>
-        <td><span th:text="*{age}" /></td>
-        <td><span th:text="*{email}" /></td>
-        <td><span th:text="*{listRolesToString()}" /></td>
-    </tr>
-</table>
+    <table border="1" th:object="${user}">
+        <tr>
+            <td>id</td>
+            <td>first name</td>
+            <td>last name</td>
+            <td>age</td>
+            <td>email</td>
+            <td>roles</td>
+        </tr>
+
+        <tr>
+            <td><span th:text="*{id}" /></td>
+            <td><span th:text="*{firstName}" /></td>
+            <td><span th:text="*{lastName}" /></td>
+            <td><span th:text="*{age}" /></td>
+            <td><span th:text="*{email}" /></td>
+            <td><span th:text="*{listRolesToString()}" /></td>
+        </tr>
+    </table>
 </body>
 </html>

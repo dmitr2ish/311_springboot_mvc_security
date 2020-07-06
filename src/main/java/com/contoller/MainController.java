@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -33,6 +35,12 @@ public class MainController {
         this.reprService = reprService;
     }
 
+    @GetMapping(value = "/newuser")
+    public ModelAndView toUserForm() {
+        return new ModelAndView("main/form")
+                .addObject("user", new UserRepr());
+    }
+
     @RequestMapping(value = "/secretadminpage", method = RequestMethod.GET)
     public String secretPage() {
         service.addRole(new Role("ADMIN"));
@@ -49,6 +57,7 @@ public class MainController {
         return "redirect:/login";
     }
 
+    //TODO    Страница для тестов убрать как станет не нужна
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String indexPage() {
         return "main/index";
@@ -59,13 +68,14 @@ public class MainController {
         return "main/login";
     }
 
-    @RequestMapping(value = "/reg", method = RequestMethod.GET)
-    public String registerPage(Model model, Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-        model.addAttribute("principal", user);
-        model.addAttribute("user", new UserRepr());
-        return "main/reg";
-    }
+//TODO убрать если не пригодится
+//    @RequestMapping(value = "/reg", method = RequestMethod.GET)
+//    public String registerPage(Model model, Authentication authentication) {
+//        User user = (User) authentication.getPrincipal();
+//        model.addAttribute("principal", user);
+//        model.addAttribute("user", new UserRepr());
+//        return "main/reg";
+//    }
 
     @RequestMapping(value = "/reg", method = RequestMethod.POST)
     public String saveUser(@Valid UserRepr userRepr,
