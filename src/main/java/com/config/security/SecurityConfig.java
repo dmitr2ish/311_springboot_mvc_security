@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //страница аутентификации доступна всем
                 .antMatchers("/login").anonymous()
-                .antMatchers("/secretadminpage").anonymous()
+                .antMatchers("/secretadminpage").anonymous()//TODO оставил для тестов добавляет пользователя с правами admin и user
                 //.antMatchers("/reg").anonymous()
                 //защищенные url
                 .and()

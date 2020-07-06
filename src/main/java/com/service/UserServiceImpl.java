@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService, UserReprService {
 
     @Override
     public void update(User user) {
-        userRepo.addUser(user);
+        userRepo.update(user);
     }
 
     @Override

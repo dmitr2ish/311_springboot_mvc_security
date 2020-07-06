@@ -18,12 +18,11 @@ public class UserAuthService implements UserDetailsService {
         this.repo = repo;
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = repo.getByEmail(username);
         if (user == null) {
-            throw new UsernameNotFoundException("Пользователь с именем " + username + "не найден");
+            throw new UsernameNotFoundException("A user with this name " + username + " was not found");
         }
         return user;
     }

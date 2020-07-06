@@ -1,15 +1,11 @@
 package com.contoller;
 
 import com.entity.Role;
-import com.entity.User;
 import com.service.UserRepr;
 import com.service.UserReprService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,16 +47,10 @@ public class MainController {
         user.setEmail("test@test.ru");
         user.setPassword("test");
         user.setRepeatPassword("test");
-        user.setAge((byte)18);
+        user.setAge((byte) 18);
         user.setRoleList(service.getAllRoles());
         reprService.createUser(user);
         return "redirect:/login";
-    }
-
-    //TODO    Страница для тестов убрать как станет не нужна
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String indexPage() {
-        return "main/index";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -68,19 +58,10 @@ public class MainController {
         return "main/login";
     }
 
-//TODO убрать если не пригодится
-//    @RequestMapping(value = "/reg", method = RequestMethod.GET)
-//    public String registerPage(Model model, Authentication authentication) {
-//        User user = (User) authentication.getPrincipal();
-//        model.addAttribute("principal", user);
-//        model.addAttribute("user", new UserRepr());
-//        return "main/reg";
-//    }
-
     @RequestMapping(value = "/reg", method = RequestMethod.POST)
     public String saveUser(@Valid UserRepr userRepr,
                            BindingResult bindingResult,
-                            @RequestParam(required=false, value = "flag") String flag) {
+                           @RequestParam(required = false, value = "flag") String flag) {
         if (bindingResult.hasErrors()) {
             //если есть ошибки на странице остаемся на той же странице
             return "redirect:reg";
@@ -112,11 +93,6 @@ public class MainController {
         userRepr.setRoleList(roleList);
 
         reprService.createUser(userRepr);
-        return "redirect:/admin/list";
-    }
-
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public String errorPage() {
-        return "main/error";
+        return "redirect:/admin/";
     }
 }

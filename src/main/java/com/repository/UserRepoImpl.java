@@ -19,11 +19,12 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public void addUser(User user) {
-        if (user.getId() == null) {
-            manager.persist(user);
-        } else {
-            manager.merge(user);
-        }
+        manager.persist(user);
+    }
+
+    @Override
+    public void update(User user) {
+        manager.merge(user);
     }
 
     @Override
