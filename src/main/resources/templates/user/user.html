@@ -83,13 +83,13 @@
 <div class="container-fluid">
     <!-- header -->
     <nav class="navbar navbar-dark bg-dark">
-<!--        <table th:object="${user}">-->
-<!--            <tr class="navbar-brand">-->
-<!--                <td><span class="username" th:text="*{email}"/></td>-->
-<!--                <td>with roles</td>-->
-<!--                <td><span th:text="*{listRolesToString()}"/></td>-->
-<!--            </tr>-->
-<!--        </table>-->
+        <table th:object="${user}">
+            <tr class="navbar-brand">
+                <td><span class="username" th:text="*{email}"/></td>
+                <td>with roles</td>
+                <td><span th:text="*{listRolesToString()}"/></td>
+            </tr>
+        </table>
 
         <form class="form-inline">
             <button type="button" class="btn btn-link my-2 my-sm-0" onclick="location.href='/logout'">Logout</button>
