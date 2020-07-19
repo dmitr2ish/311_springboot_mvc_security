@@ -1,7 +1,6 @@
 package com.repository;
 
 import com.entity.Role;
-import com.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,21 +28,6 @@ public class RoleRepoImpl implements RoleRepo {
         return manager.createQuery("select c from Role c where c.name = :name", Role.class)
                 .setParameter("name", name)
                 .getSingleResult();
-    }
-
-    public void linkRoles(User userWithId, List<Role> roles) {
-        String queryLinkRoles = "inser into " + tableUserWithRoles + " (user_id, role_id) VALUES (:user_id, :role_id);";
-        String roleName;
-        Role currentRole;
-        for (Role role : roles) {
-            roleName = role.getName();
-            currentRole = getByName(roleName);
-
-            manager.createNativeQuery(queryLinkRoles)
-                    .setParameter("user_id", userWithId.getId())
-                    .setParameter("role_id", currentRole.getId())
-                    .executeUpdate();
-        }
     }
 
     @Override

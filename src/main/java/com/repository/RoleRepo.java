@@ -13,6 +13,4 @@ public interface RoleRepo {
     void add(Role role);
 
     void deleteAll();
-
-    void linkRoles(User userWithId, List<Role> roles);
 }

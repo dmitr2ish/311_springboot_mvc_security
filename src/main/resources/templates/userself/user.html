@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="row">
-                    <button type="button" class="btn btn-primary btn-block" onclick="location.href='/user/'">User
+                    <button type="button" class="btn btn-primary btn-block" onclick="location.href='/aboutself/'">User
                     </button>
                 </div>
             </div>
@@ -119,46 +119,46 @@
                             <div class="row">
                                 <div class="table_container col">
 
-<!--                                    <table class="table table-striped" th:object="${user}">-->
-<!--                                        <thead>-->
-<!--                                        <tr>-->
-<!--                                            <th scope="col">ID</th>-->
-<!--                                            <th scope="col">First name</th>-->
-<!--                                            <th scope="col">Last name</th>-->
-<!--                                            <th scope="col">Age</th>-->
-<!--                                            <th scope="col">Email</th>-->
-<!--                                            <th scope="col">Role(s)</th>-->
-<!--                                        </tr>-->
-<!--                                        </thead>-->
+                                    <table class="table table-striped" th:object="${user}">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">First name</th>
+                                            <th scope="col">Last name</th>
+                                            <th scope="col">Age</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Role(s)</th>
+                                        </tr>
+                                        </thead>
 
-<!--                                        <tbody>-->
-<!--                                        <tr>-->
-<!--                                            <td>-->
-<!--                                                        <span th:text="*{id}"/>-->
-<!--                                            </td>-->
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <span th:text="*{id}"></span>
+                                            </td>
 
-<!--                                            <td>-->
-<!--                                                        <span th:text="*{firstName}"/>-->
-<!--                                            </td>-->
+                                            <td>
+                                                <span th:text="*{firstName}"></span>
+                                            </td>
 
-<!--                                            <td>-->
-<!--                                                        <span th:text="*{lastName}"/>-->
-<!--                                            </td>-->
+                                            <td>
+                                                <span th:text="*{lastName}"></span>
+                                            </td>
 
-<!--                                            <td>-->
-<!--                                                        <span th:text="*{age}"/>-->
-<!--                                            </td>-->
+                                            <td>
+                                                <span th:text="*{age}"></span>
+                                            </td>
 
-<!--                                            <td>-->
-<!--                                                        <span th:text="*{email}"/>-->
-<!--                                            </td>-->
+                                            <td>
+                                                <span th:text="*{email}"></span>
+                                            </td>
 
-<!--                                            <td>-->
-<!--                                                        <span th:text="*{listRolesToString()}"/>-->
-<!--                                            </td>-->
-<!--                                        </tr>-->
-<!--                                        </tbody>-->
-<!--                                    </table>-->
+                                            <td>
+                                                <span th:text="*{listRolesToString()}"></span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

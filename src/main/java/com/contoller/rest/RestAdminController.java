@@ -24,28 +24,7 @@ public class RestAdminController {
 
     @PostMapping(value = "/add")
     public ResponseEntity<?> addUser(@RequestBody User user) {
-        List<Role> roleList = new ArrayList<>();
-
-        Role ADMIN_ROLE = userService.getRoleByName("ADMIN");
-        Role USER_ROLE = userService.getRoleByName("USER");
-
-        for (Role role : user.getRoles()) {
-            if ((role.getName().equals("ADMIN")) && (role.getName().equals("USER"))) {
-                roleList.add(ADMIN_ROLE);
-                roleList.add(USER_ROLE);
-            } else if (role.getName().equals("ADMIN")) {
-                roleList.add(ADMIN_ROLE);
-            } else {
-                roleList.add(USER_ROLE);
-            }
-        }
-        User currentUser = new User();
-        currentUser.setRoles(roleList);
-        currentUser.setFirstName(user.getFirstName());
-        currentUser.setLastName(user.getLastName());
-        currentUser.setAge(user.getAge());
-        currentUser.setEmail(user.getEmail());
-        currentUser.setPassword(user.getPassword());
+        User currentUser = setRolesHelper(user);
 
         userService.addUser(currentUser);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -70,6 +49,21 @@ public class RestAdminController {
 
     @PutMapping("/user")
     public ResponseEntity<?> updateUser(@RequestBody User user) {
+        User currentUser = setRolesHelper(user);
+
+        userService.update(currentUser);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteUser(@RequestBody User requestUser) {
+        User user = userService.getById(requestUser.getId());
+        userService.delete(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //The method sets the correct roles with an id, since the role comes to the controller without an id
+    public User setRolesHelper(User user) {
         List<Role> roleList = new ArrayList<>();
 
         Role ADMIN_ROLE = userService.getRoleByName("ADMIN");
@@ -85,24 +79,26 @@ public class RestAdminController {
                 roleList.add(USER_ROLE);
             }
         }
-        User currentUser = userService.getById(user.getId());
-        currentUser.setRoles(roleList);
-        currentUser.setFirstName(user.getFirstName());
-        currentUser.setLastName(user.getLastName());
-        currentUser.setAge(user.getAge());
-        currentUser.setEmail(user.getEmail());
 
-        userService.update(currentUser);
-        return new ResponseEntity<>(HttpStatus.OK);
+        User currentUser;
+
+        if (user.getId() == null) {
+            currentUser = new User();
+            currentUser.setRoles(roleList);
+            currentUser.setFirstName(user.getFirstName());
+            currentUser.setLastName(user.getLastName());
+            currentUser.setAge(user.getAge());
+            currentUser.setEmail(user.getEmail());
+            currentUser.setPassword(user.getPassword());
+        } else {
+            currentUser = userService.getById(user.getId());
+            currentUser.setRoles(roleList);
+            currentUser.setFirstName(user.getFirstName());
+            currentUser.setLastName(user.getLastName());
+            currentUser.setAge(user.getAge());
+            currentUser.setEmail(user.getEmail());
+        }
+
+        return currentUser;
     }
-
-    @PostMapping("/delete")
-    public ResponseEntity<?> deleteUser(@RequestBody User requestUser) {
-        User user = userService.getById(requestUser.getId());
-        userService.delete(user);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    //The method sets the correct roles with an id, since the role comes to the controller without an id
-
 }

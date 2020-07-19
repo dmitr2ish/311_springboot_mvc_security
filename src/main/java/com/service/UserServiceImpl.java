@@ -29,16 +29,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(User user) {
-        //сначала сохраняем юзера без id
-        addUser(user);
-        //потом получаем по email уже с id
-        User userWithId = userRepo.getByEmail(user.getEmail());
-        //и теперь линкуем роли в третьей таблице
-        roleRepo.linkRoles(userWithId, user.getRoles());
-    }
-
-    @Override
     public void addUser(User user) {
         String pass = user.getPassword();
         user.setPassword(passwordEncoder.encode(pass));

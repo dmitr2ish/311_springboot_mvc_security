@@ -1,6 +1,5 @@
 package com.repository;
 
-import com.entity.Role;
 import com.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,15 +25,6 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public void addUser(User user) {
-//        String deleteAllUserQuery = "insert into " + tableUsers + " values (:id,:age,:email,:first_name,:last_name,:password)";
-//        manager.createNativeQuery(deleteAllUserQuery)
-//                .setParameter("id", user.getId())
-//                .setParameter("age", user.getAge())
-//                .setParameter("email", user.getEmail())
-//                .setParameter("first_name", user.getFirstName())
-//                .setParameter("last_name", user.getLastName())
-//                .setParameter("password", user.getPassword())
-//                .executeUpdate();
         manager.persist(user);
     }
 
