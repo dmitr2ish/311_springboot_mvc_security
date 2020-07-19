@@ -5,6 +5,7 @@ import com.entity.User;
 import java.util.List;
 
 public interface UserRepo {
+
     void addUser(User user);
 
     void update(User user);

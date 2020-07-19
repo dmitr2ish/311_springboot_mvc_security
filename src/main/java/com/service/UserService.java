@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface UserService {
 
+    void createUser(User user);
+
     void addUser(User user);
 
     User getById(Long id);

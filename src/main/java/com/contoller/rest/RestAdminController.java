@@ -24,7 +24,6 @@ public class RestAdminController {
 
     @PostMapping(value = "/add")
     public ResponseEntity<?> addUser(@RequestBody User user) {
-
         List<Role> roleList = new ArrayList<>();
 
         Role ADMIN_ROLE = userService.getRoleByName("ADMIN");
@@ -40,15 +39,15 @@ public class RestAdminController {
                 roleList.add(USER_ROLE);
             }
         }
+        User currentUser = new User();
+        currentUser.setRoles(roleList);
+        currentUser.setFirstName(user.getFirstName());
+        currentUser.setLastName(user.getLastName());
+        currentUser.setAge(user.getAge());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setPassword(user.getPassword());
 
-        User newUser = new User();
-        newUser.setRoles(roleList);
-        newUser.setFirstName(user.getFirstName());
-        newUser.setLastName(user.getLastName());
-        newUser.setAge(user.getAge());
-        newUser.setEmail(user.getEmail());
-
-        userService.addUser(newUser);
+        userService.addUser(currentUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

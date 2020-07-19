@@ -1,6 +1,7 @@
 package com.repository;
 
 import com.entity.Role;
+import com.entity.User;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface RoleRepo {
     void add(Role role);
 
     void deleteAll();
+
+    void linkRoles(User userWithId, List<Role> roles);
 }
