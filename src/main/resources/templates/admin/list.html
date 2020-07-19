@@ -180,7 +180,7 @@
                                         <!-- Generating page of the new user -->
                                         <div class="row justify-content-center">
                                             <div class="col-4">
-                                                <form id="add" action="/admin/user" method="POST">
+                                                <form action="/admin/add" id="addForm" method="post">
                                                     <div class="form-group text-center">
                                                         <label for="addFirstName" class="font-weight-bold">First
                                                             name</label>
@@ -219,19 +219,12 @@
                                                     </div>
 
                                                     <div class="form-group text-center">
-                                                        <label for="addRepeatPass" class="font-weight-bold">Confirm
-                                                            password</label>
-                                                        <input type="password" class="form-control" name="repeatPass"
-                                                               id="addRepeatPass">
-                                                        <!-- <label th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}">repeatPassword error</label> -->
-                                                    </div>
-
-                                                    <div class="form-group text-center">
                                                         <label for="addRoles" class="font-weight-bold">Role</label>
                                                         <select class="form-control custom-select" size="2"
                                                                 id="addRoles" multiple name="roles">
-                                                            <option th:each="role: ${roles}" th:value="${role.name}"
-                                                                    th:text="${role.name}"></option>
+                                                            <option th:each="role: ${roles}" th:value="${role.name}" th:text="${role.name}">
+
+                                                            </option>
                                                         </select>
                                                     </div>
 
@@ -387,7 +380,6 @@
     })
 
     function saveUser(e) {
-
         e.preventDefault();
 
         let newUser = {
@@ -395,10 +387,8 @@
             lastName: $('#addLastName').val(),
             age: $('#addAge').val(),
             email: $('#addUserMail').val(),
-            password: $('#addPass').val(),
-            repeatPassword: $('#addRepeatPass').val(),
+            pass: $('#addPass').val(),
             roles: []
-
         };
 
         $('#addRoles').find('option:selected').each((i, option) => {
@@ -409,7 +399,7 @@
         console.log(newUser);
 
         $.ajax({
-            url: '/admin/user',
+            url: '/admin/add',
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json',
@@ -418,7 +408,7 @@
                 $('#list-tab').tab('show')
                 updateUserTable();
             }
-        });
+        })
     }
 
     function editUser(e) {

@@ -1,11 +1,7 @@
 package com.contoller.rest;
 
-import ch.qos.logback.core.boolex.EvaluationException;
 import com.entity.Role;
 import com.entity.User;
-import com.entity.Userable;
-import com.service.UserRepr;
-import com.service.UserReprService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +16,40 @@ import java.util.List;
 public class RestAdminController {
 
     final private UserService userService;
-    final private UserReprService reprService;
 
     @Autowired
-    public RestAdminController(UserService userService, UserReprService reprService) {
+    public RestAdminController(UserService userService) {
         this.userService = userService;
-        this.reprService = reprService;
+    }
+
+    @PostMapping(value = "/add")
+    public ResponseEntity<?> addUser(@RequestBody User user) {
+
+        List<Role> roleList = new ArrayList<>();
+
+        Role ADMIN_ROLE = userService.getRoleByName("ADMIN");
+        Role USER_ROLE = userService.getRoleByName("USER");
+
+        for (Role role : user.getRoles()) {
+            if ((role.getName().equals("ADMIN")) && (role.getName().equals("USER"))) {
+                roleList.add(ADMIN_ROLE);
+                roleList.add(USER_ROLE);
+            } else if (role.getName().equals("ADMIN")) {
+                roleList.add(ADMIN_ROLE);
+            } else {
+                roleList.add(USER_ROLE);
+            }
+        }
+
+        User newUser = new User();
+        newUser.setRoles(roleList);
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setAge(user.getAge());
+        newUser.setEmail(user.getEmail());
+
+        userService.addUser(newUser);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/list")
@@ -34,12 +58,6 @@ public class RestAdminController {
         return users != null && !users.isEmpty()
                 ? new ResponseEntity<>(users, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @PostMapping("/user")
-    public ResponseEntity<?> create(@RequestBody UserRepr userRepr) {
-        reprService.createUser(userRepr);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/user/{id}")
@@ -85,6 +103,7 @@ public class RestAdminController {
         userService.delete(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     //The method sets the correct roles with an id, since the role comes to the controller without an id
 
 }

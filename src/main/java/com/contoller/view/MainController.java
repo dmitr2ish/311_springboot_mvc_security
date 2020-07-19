@@ -1,8 +1,7 @@
 package com.contoller.view;
 
 import com.entity.Role;
-import com.service.UserRepr;
-import com.service.UserReprService;
+import com.entity.User;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class MainController {
 
     final private UserService service;
-    final private UserReprService serviceRepr;
 
     @Autowired
-    public MainController(UserService service, UserReprService serviceRepr) {
+    public MainController(UserService service) {
         this.service = service;
-        this.serviceRepr = serviceRepr;
     }
 
     @GetMapping(value = "/login")
@@ -37,15 +34,14 @@ public class MainController {
 
         service.addRole(new Role("ADMIN"));
         service.addRole(new Role("USER"));
-        UserRepr user = new UserRepr();
+        User user = new User();
         user.setFirstName("test");
         user.setLastName("test");
         user.setEmail("test@test.ru");
         user.setPassword("test");
-        user.setRepeatPassword("test");
         user.setAge((byte) 18);
-        user.setRoleList(service.getAllRoles());
-        serviceRepr.createUser(user);
+        user.setRoles(service.getAllRoles());
+        service.addUser(user);
         return "redirect:/login";
     }
 }

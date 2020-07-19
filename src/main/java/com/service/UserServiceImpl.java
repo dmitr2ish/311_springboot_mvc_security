@@ -13,32 +13,16 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService, UserReprService {
-
-    private BCryptPasswordEncoder encoder;
+public class UserServiceImpl implements UserService {
 
     private UserRepo userRepo;
 
     private RoleRepo roleRepo;
 
     @Autowired
-    public UserServiceImpl(BCryptPasswordEncoder encoder, UserRepo userRepo, RoleRepo roleRepo) {
-        this.encoder = encoder;
+    public UserServiceImpl(UserRepo userRepo, RoleRepo roleRepo) {
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
-    }
-
-    @Override
-    public void createUser(UserRepr userRepr) {
-        User user = new User(
-                userRepr.getFirstName(),
-                userRepr.getLastName(),
-                userRepr.getAge(),
-                userRepr.getEmail(),
-                encoder.encode(userRepr.getPassword()),
-                userRepr.getRoleList());
-
-        userRepo.addUser(user);
     }
 
     @Override

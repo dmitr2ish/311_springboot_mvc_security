@@ -2,7 +2,6 @@ package com.contoller.view;
 
 import com.entity.Role;
 import com.entity.User;
-import com.service.UserRepr;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -28,7 +27,7 @@ public class AdminController {
     @GetMapping
     public ModelAndView listPage(Authentication authentication) {
         return new ModelAndView("admin/list")
-                .addObject("user", new UserRepr())
+                .addObject("user", new User())
                 .addObject("currentUser", authentication.getPrincipal());
     }
 
