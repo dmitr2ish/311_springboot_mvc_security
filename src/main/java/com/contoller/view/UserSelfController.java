@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/aboutself")
+public class UserSelfController {
 
     @GetMapping
     public ModelAndView userPage(Authentication authentication) {
-        ModelAndView mav = new ModelAndView("user/user");
+        ModelAndView mav = new ModelAndView("userself/user");
         mav.addObject("user", authentication.getPrincipal());
         return mav;
     }

@@ -67,8 +67,18 @@ public class UserServiceImpl implements UserService, UserReprService {
     }
 
     @Override
-    public void deleteAll() {
+    public boolean deleteById(Long id) {
+        return userRepo.deleteById(id);
+    }
+
+    @Override
+    public void deleteAllUsers() {
         userRepo.deleteAll();
+    }
+
+    @Override
+    public void deleteAllRoles() {
+        roleRepo.deleteAll();
     }
 
     @Override

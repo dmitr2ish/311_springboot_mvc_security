@@ -19,5 +19,7 @@ public interface UserRepo {
 
     void delete(User user);
 
+    boolean deleteById(Long id);
+
     void deleteAll();
 }

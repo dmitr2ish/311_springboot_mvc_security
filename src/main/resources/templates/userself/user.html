@@ -34,10 +34,9 @@
         }
 
         .sidebar {
-            padding-top: 19px;
+            padding-top: 25px;
             width: 237px;
             background-color: #ffffff;
-            padding: 25px 0 0 0;
         }
 
         .content {
@@ -47,19 +46,6 @@
 
         .admin_panel {
             margin-bottom: 11px;
-        }
-
-        .buttons_panel {
-        }
-
-        .user_table_button {
-        }
-
-        .btn-secondary,
-        .btn-secondary:not(:disabled):not(.disabled):active,
-        .btn-secondary:hover,
-        .btn-secondary:focus {
-            border-color: #dee2e6;
         }
 
         .tables_name_panel {
@@ -85,9 +71,9 @@
     <nav class="navbar navbar-dark bg-dark">
         <table th:object="${user}">
             <tr class="navbar-brand">
-                <td><span class="username" th:text="*{email}"/></td>
+                <td><span class="username" th:text="*{email}"></span></td>
                 <td>with roles</td>
-                <td><span th:text="*{listRolesToString()}"/></td>
+                <td><span th:text="*{listRolesToString()}"></span></td>
             </tr>
         </table>
 

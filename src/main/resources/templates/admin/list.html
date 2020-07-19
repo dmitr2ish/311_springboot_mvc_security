@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -36,10 +37,9 @@
         }
 
         .sidebar {
-            padding-top: 19px;
             width: 237px;
             background-color: #ffffff;
-            padding: 25px 0 0 0;
+            padding-top: 25px;
         }
 
         .content {
@@ -49,12 +49,6 @@
 
         .admin_panel {
             margin-bottom: 11px;
-        }
-
-        .buttons_panel {
-        }
-
-        .user_table_button {
         }
 
         .btn-secondary,
@@ -89,9 +83,9 @@
     <nav class="navbar navbar-dark bg-dark">
         <table th:object="${currentUser}">
             <tr class="navbar-brand">
-                <td><span class="username" th:text="*{email}"/></td>
+                <td><span class="username" th:text="*{email}"></span></td>
                 <td>with roles</td>
-                <td><span th:text="*{listRolesToString()}"/></td>
+                <td><span th:text="*{listRolesToString()}"></span></td>
             </tr>
         </table>
 
@@ -105,13 +99,13 @@
         <!-- sidebar -->
         <div class="row">
             <div class="col-md-auto sidebar">
-                <div class="row">
+                <div sec:authorize="hasAuthority('ADMIN')" class="row">
                     <button type="button" class="btn btn-primary btn-block" onclick="location.href='/admin/'">
                         Admin
                     </button>
                 </div>
 
-                <div class="row">
+                <div sec:authorize="hasAuthority('USER')" class="row">
                     <button type="button" class="btn btn-link btn-block" onclick="location.href='/user'">
                         User
                     </button>
@@ -145,7 +139,7 @@
                     <!-- content -->
                     <div class="tab-content" id="myTabContent">
                         <!-- users' list -->
-                        <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
                             <!-- the name of the panel -->
                             <div class="row tables_name_panel border">
                                 <h5>All users</h5>
@@ -186,10 +180,12 @@
                                         <!-- Generating page of the new user -->
                                         <div class="row justify-content-center">
                                             <div class="col-4">
-                                                <form id="add" action="/admin/reg" method="post">
+                                                <form id="add" action="/admin/user" method="POST">
                                                     <div class="form-group text-center">
-                                                        <label for="addFirstName" class="font-weight-bold">First name</label>
-                                                        <input type="text" class="form-control" name="firstName" id="addFirstName">
+                                                        <label for="addFirstName" class="font-weight-bold">First
+                                                            name</label>
+                                                        <input type="text" class="form-control" name="firstName"
+                                                               id="addFirstName">
                                                         <!-- <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">firstName error</label> -->
                                                     </div>
 
@@ -234,8 +230,7 @@
                                                         <label for="addRoles" class="font-weight-bold">Role</label>
                                                         <select class="form-control custom-select" size="2"
                                                                 id="addRoles" multiple name="roles">
-                                                            <option th:each="role: ${roles}"
-                                                                    th:value="${role.name}"
+                                                            <option th:each="role: ${roles}" th:value="${role.name}"
                                                                     th:text="${role.name}"></option>
                                                         </select>
                                                     </div>
@@ -259,6 +254,118 @@
     </main>
 </div>
 
+<!-- edit modal -->
+<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-user" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edit-user">Edit User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form action="/admin/user/" class="text-center" id="editForm" method="post">
+                    <div class="form-group">
+                        <label for="editId" class="col-form-label">Id</label>
+                        <input type="text" class="form-control" id="editId" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editFirstName" class="col-form-label">First name</label>
+                        <input type="text" class="form-control" id="editFirstName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editLastName" class="col-form-label">Last Name</label>
+                        <input type="text" class="form-control" id="editLastName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editAge" class="col-form-label">Age</label>
+                        <input type="text" class="form-control" id="editAge">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editEmail" class="col-form-label">Email</label>
+                        <input type="text" class="form-control" id="editEmail">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editRoles" class="col-form-label">Roles</label>
+                        <select class="form-control custom-select" size="2"
+                                id="editRoles" multiple name="roles">
+                            <option th:each="role: ${roles}" th:value="${role.name}" th:text="${role.name}">
+                            </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="edit">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- delete modal -->
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="edit-user" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delete-user">Delete User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form action="/admin/user/" class="text-center" id="deleteForm" method="post">
+                    <div class="form-group">
+                        <label for="deleteId" class="col-form-label">Id</label>
+                        <input type="text" class="form-control" id="deleteId" name="id" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deleteFirstName" class="col-form-label">First name</label>
+                        <input type="text" class="form-control" id="deleteFirstName" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deleteLastName" class="col-form-label">Last Name</label>
+                        <input type="text" class="form-control" id="deleteLastName" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deleteAge" class="col-form-label">Age</label>
+                        <input type="text" class="form-control" id="deleteAge" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deleteEmail" class="col-form-label">Email</label>
+                        <input type="text" class="form-control" id="deleteEmail" readonly="readonly">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deleteRoles" class="col-form-label">Roles</label>
+                        <select class="form-control custom-select" size="2"
+                                id="deleteRoles" multiple name="roles" disabled>
+                            <option th:each="role: ${roles}" th:value="${role.name}" th:text="${role.name}">
+                            </option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="delete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -269,9 +376,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-<script src="/js/common.js"></script>
-
-<!-- uploading a new user -->
 <script>
     const ROLES = ['ADMIN', 'USER'];
 
@@ -283,7 +387,9 @@
     })
 
     function saveUser(e) {
+
         e.preventDefault();
+
         let newUser = {
             firstName: $('#addFirstName').val(),
             lastName: $('#addLastName').val(),
@@ -292,23 +398,92 @@
             password: $('#addPass').val(),
             repeatPassword: $('#addRepeatPass').val(),
             roles: []
+
         };
+
         $('#addRoles').find('option:selected').each((i, option) => {
             newUser['roles'].push({'name': $(option).val()});
         });
+
         console.log("user:");
         console.log(newUser);
+
         $.ajax({
-            url: '/admin/reg',
+            url: '/admin/user',
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json',
             data: JSON.stringify(newUser),
-            complete: function (data) {
-                $('#list').tab('show')
+            complete: function () {
+                $('#list-tab').tab('show')
                 updateUserTable();
             }
         });
+    }
+
+    function editUser(e) {
+        e.preventDefault();
+
+        let editUser = {
+            id: $('#editId').val(),
+            firstName: $('#editFirstName').val(),
+            lastName: $('#editLastName').val(),
+            age: $('#editAge').val(),
+            email: $('#editEmail').val(),
+            roles: []
+        };
+
+        $('#editRoles').find('option:selected').each((i, option) => {
+            editUser['roles'].push({'name': $(option).val()});
+        });
+
+        console.log("user:");
+        console.log(editUser);
+
+        $.ajax({
+            url: '/admin/user',
+            type: 'PUT',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(editUser),
+            complete: function () {
+                $('#edit-modal').modal('hide');
+                updateUserTable();
+            }
+        });
+    }
+
+    function deleteUser(e) {
+        e.preventDefault();
+
+        let deleteUSer = {
+            id: $('#deleteId').val(),
+            firstName: $('#deleteFirstName').val(),
+            lastName: $('#deleteLastName').val(),
+            age: $('#deleteAge').val(),
+            email: $('#deleteEmail').val(),
+            roles: []
+
+        };
+
+        $('#deleteRoles').find('option:selected').each((i, option) => {
+            deleteUSer['roles'].push({'name': $(option).val()});
+        });
+
+        console.log("user:");
+        console.log(deleteUSer);
+
+        $.ajax({
+            url: '/admin/delete',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(deleteUSer),
+            complete: function () {
+                $('#delete-modal').modal('hide');
+                updateUserTable();
+            }
+        })
     }
 
     function updateUserTable() {
@@ -331,6 +506,80 @@
                              </tr>"))
             }
         });
+    }
+
+    function deleteUserForm(id) {
+        console.log("id =" + id);
+        $.ajax({
+            url: '/admin/user/' + id,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (user) {
+
+                console.log("user:");
+                console.log(user);
+
+                $('#deleteId').val(user.id);
+                $('#deleteFirstName').val(user.firstName);
+                $('#deleteLastName').val(user.lastName);
+                $('#deleteAge').val(user.age);
+                $('#deleteEmail').val(user.email);
+
+                const deleteRoles = $('#deleteRoles');
+                const userRoles = user.roles.map(r => r.name);
+
+                console.log("userRoles:");
+                console.log(userRoles);
+
+                deleteRoles.empty();
+
+                ROLES.forEach(role => deleteRoles.append(
+                    "<option value='" + role + "'"
+                    + (userRoles.includes(role) ? " selected" : "") + ">"
+                    + role + "</option>")
+                );
+
+                $('#delete-modal').modal('show');
+            }
+        })
+    }
+
+    function editUserForm(id) {
+        console.log("id =" + id);
+        $.ajax({
+            url: '/admin/user/' + id,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (user) {
+
+                console.log("user:");
+                console.log(user);
+
+                $('#editId').val(user.id);
+                $('#editFirstName').val(user.firstName);
+                $('#editLastName').val(user.lastName);
+                $('#editAge').val(user.age);
+                $('#editEmail').val(user.email);
+
+                const editRoles = $('editRoles');
+                const userRoles = user.roles.map(r => r.name);
+
+                console.log("userRoles:");
+                console.log(userRoles);
+
+                editRoles.empty();
+
+                ROLES.forEach(role => editRoles.append(
+                    "<option value='" + role + "'"
+                    + (userRoles.includes(role) ? " selected" : "") + ">"
+                    + role + "</option>")
+                );
+
+                $('#edit-modal').modal('show');
+            }
+        })
     }
 </script>
 </body>

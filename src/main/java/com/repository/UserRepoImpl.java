@@ -10,11 +10,17 @@ import java.util.List;
 @Repository
 public class UserRepoImpl implements UserRepo {
 
-    private EntityManager manager;
+    final private EntityManager manager;
+    final private String tableRoles;
+    final private String tableUsers;
+    final private String tableUserWithRoles;
 
     @Autowired
     public UserRepoImpl(EntityManager manager) {
         this.manager = manager;
+        tableRoles = "311_roles";
+        tableUsers = "311_user";
+        tableUserWithRoles = "311_users_roles";
     }
 
     @Override
@@ -40,13 +46,28 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public void delete(User user) {
-        User mergedUser = manager.merge(user);
-        manager.remove(mergedUser);
+        manager.remove(user);
     }
 
     @Override
     public void deleteAll() {
-        manager.createQuery("delete from User").executeUpdate();
+        String deleteAllUserQuery = "delete FROM " + tableUsers + " where id >= 0;";
+        manager.createNativeQuery(deleteAllUserQuery)
+                .executeUpdate();
+    }
+
+    @Override
+    public boolean deleteById(Long id){
+        String deleteLink = "delete FROM " + tableUserWithRoles + " where user_id = :id;";
+        String deleteByIdQuery = "delete FROM " + tableUsers + " where id = :id;";
+        manager.createNativeQuery(deleteLink)
+                .setParameter("id", id)
+                .executeUpdate();
+
+        int countDeleteUser = manager.createNativeQuery(deleteByIdQuery)
+                .setParameter("id", id)
+                .executeUpdate();
+        return countDeleteUser != 0;
     }
 
     @Override
