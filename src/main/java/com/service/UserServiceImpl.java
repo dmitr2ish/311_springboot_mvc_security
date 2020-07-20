@@ -61,16 +61,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteAllUsers() {
-        userRepo.deleteAll();
-    }
-
-    @Override
-    public void deleteAllRoles() {
-        roleRepo.deleteAll();
-    }
-
-    @Override
     public Role getRoleByName(String name) {
         return roleRepo.getByName(name);
     }

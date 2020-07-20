@@ -40,16 +40,4 @@ public class RoleRepoImpl implements RoleRepo {
     public void add(Role role) {
         manager.persist(role);
     }
-
-    @Override
-    public void deleteAll() {
-        String deleteLink = "delete FROM " + tableUserWithRoles + " where user_id >= 0;";
-        String deleteRoles = "delete FROM " + tableRoles + " where id >= 0;";
-
-        manager.createNativeQuery(deleteLink)
-                .executeUpdate();
-
-        manager.createNativeQuery(deleteRoles)
-                .executeUpdate();
-    }
 }

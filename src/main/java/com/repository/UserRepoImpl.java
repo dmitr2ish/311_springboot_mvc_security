@@ -50,13 +50,6 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
-    public void deleteAll() {
-        String deleteAllUserQuery = "delete FROM " + tableUsers + " where id >= 0;";
-        manager.createNativeQuery(deleteAllUserQuery)
-                .executeUpdate();
-    }
-
-    @Override
     public boolean deleteById(Long id){
         String deleteLink = "delete FROM " + tableUserWithRoles + " where user_id = :id;";
         String deleteByIdQuery = "delete FROM " + tableUsers + " where id = :id;";

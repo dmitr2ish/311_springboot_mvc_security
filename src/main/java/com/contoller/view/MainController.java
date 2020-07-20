@@ -28,10 +28,6 @@ public class MainController {
 
     @RequestMapping(value = "/secretadminpage", method = RequestMethod.GET)
     public String secretPage() {
-        //sequence is important
-        service.deleteAllRoles();
-        service.deleteAllUsers();
-
         service.addRole(new Role("ADMIN"));
         service.addRole(new Role("USER"));
         User user = new User();

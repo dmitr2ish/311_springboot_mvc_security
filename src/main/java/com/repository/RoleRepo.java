@@ -11,6 +11,4 @@ public interface RoleRepo {
     List<Role> getAll();
 
     void add(Role role);
-
-    void deleteAll();
 }

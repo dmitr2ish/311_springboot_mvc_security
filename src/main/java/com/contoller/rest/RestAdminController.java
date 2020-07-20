@@ -63,7 +63,7 @@ public class RestAdminController {
     }
 
     //The method sets the correct roles with an id, since the role comes to the controller without an id
-    public User setRolesHelper(User user) {
+    private User setRolesHelper(User user) {
         List<Role> roleList = new ArrayList<>();
 
         Role ADMIN_ROLE = userService.getRoleByName("ADMIN");
@@ -83,13 +83,13 @@ public class RestAdminController {
         User currentUser;
 
         if (user.getId() == null) {
-            currentUser = new User();
-            currentUser.setRoles(roleList);
-            currentUser.setFirstName(user.getFirstName());
-            currentUser.setLastName(user.getLastName());
-            currentUser.setAge(user.getAge());
-            currentUser.setEmail(user.getEmail());
-            currentUser.setPassword(user.getPassword());
+            currentUser = new User(
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getAge(),
+                    user.getEmail(),
+                    user.getPassword(),
+                    roleList);
         } else {
             currentUser = userService.getById(user.getId());
             currentUser.setRoles(roleList);

@@ -81,7 +81,7 @@
 <div class="container-fluid">
     <!-- header -->
     <nav class="navbar navbar-dark bg-dark">
-        <table th:object="${currentUser}">
+        <table id="currentUser" th:object="${currentUser}">
             <tr class="navbar-brand">
                 <td><span class="username" th:text="*{email}"></span></td>
                 <td>with roles</td>
