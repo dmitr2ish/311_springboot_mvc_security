@@ -19,6 +19,4 @@ public interface UserRepo {
     boolean isExist(User user);
 
     void delete(User user);
-
-    boolean deleteById(Long id);
 }

@@ -56,11 +56,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteById(Long id) {
-        return userRepo.deleteById(id);
-    }
-
-    @Override
     public Role getRoleByName(String name) {
         return roleRepo.getByName(name);
     }
