@@ -100,13 +100,13 @@
         <div class="row">
             <div class="col-md-auto sidebar">
                 <div sec:authorize="hasAuthority('ADMIN')" class="row">
-                    <button type="button" class="btn btn-primary btn-block" onclick="location.href='/admin/'">
+                    <button type="button" class="btn btn-primary btn-block" onclick="location.href='../../../..'">
                         Admin
                     </button>
                 </div>
 
                 <div sec:authorize="hasAuthority('USER')" class="row">
-                    <button type="button" class="btn btn-link btn-block" onclick="location.href='/aboutself'">
+                    <button type="button" class="btn btn-link btn-block" onclick="location.href='#'">
                         User
                     </button>
                 </div>
@@ -180,7 +180,7 @@
                                         <!-- Generating page of the new user -->
                                         <div class="row justify-content-center">
                                             <div class="col-4">
-                                                <form action="/admin/add" id="addForm" method="post">
+                                                <form action="/api/admin/add" id="addForm" method="post">
                                                     <div class="form-group text-center">
                                                         <label for="addFirstName" class="font-weight-bold">First
                                                             name</label>
@@ -260,7 +260,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="/admin/user/" class="text-center" id="editForm" method="post">
+                <form action="/api/admin/user/" class="text-center" id="editForm" method="post">
                     <div class="form-group">
                         <label for="editId" class="col-form-label">Id</label>
                         <input type="text" class="form-control" id="editId" readonly="readonly">
@@ -317,7 +317,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="/admin/user/" class="text-center" id="deleteForm" method="post">
+                <form action="/api/admin/user/" class="text-center" id="deleteForm" method="post">
                     <div class="form-group">
                         <label for="deleteId" class="col-form-label">Id</label>
                         <input type="text" class="form-control" id="deleteId" name="id" readonly="readonly">
@@ -400,7 +400,7 @@
         console.log(newUser);
 
         $.ajax({
-            url: '/admin/add',
+            url: '/api/admin/add',
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json',
@@ -432,7 +432,7 @@
         console.log(editUser);
 
         $.ajax({
-            url: '/admin/user',
+            url: '/api/admin/user',
             type: 'PUT',
             dataType: 'json',
             contentType: 'application/json',
@@ -465,7 +465,7 @@
         console.log(deleteUSer);
 
         $.ajax({
-            url: '/admin/delete',
+            url: '/api/admin/delete',
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json',
@@ -481,7 +481,7 @@
         $('#users').empty();
         $.ajax({
             type: 'GET',
-            url: '/admin/list',
+            url: '/api/admin/list',
             success: function (users) {
                 users.forEach(user =>
                     $('#users')
@@ -502,7 +502,7 @@
     function deleteUserForm(id) {
         console.log("id =" + id);
         $.ajax({
-            url: '/admin/user/' + id,
+            url: '/api/admin/user/' + id,
             type: 'GET',
             dataType: 'json',
             contentType: 'application/json',
@@ -539,7 +539,7 @@
     function editUserForm(id) {
         console.log("id =" + id);
         $.ajax({
-            url: '/admin/user/' + id,
+            url: '/api/admin/user/' + id,
             type: 'GET',
             dataType: 'json',
             contentType: 'application/json',

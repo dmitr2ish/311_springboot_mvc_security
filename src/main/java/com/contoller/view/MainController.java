@@ -4,14 +4,17 @@ import com.entity.Role;
 import com.entity.User;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
-@RequestMapping("/")
 public class MainController {
 
     final private UserService service;
@@ -23,7 +26,19 @@ public class MainController {
 
     @GetMapping(value = "/login")
     public ModelAndView loginpage() {
-        return new ModelAndView("main/login");
+        return new ModelAndView("login");
+    }
+
+    @GetMapping(value = "/")
+    public ModelAndView listPage(Authentication authentication) {
+        return new ModelAndView("list")
+                .addObject("user", new User())
+                .addObject("currentUser", authentication.getPrincipal());
+    }
+
+    @ModelAttribute("roles")
+    public List<Role> roles() {
+        return service.getAllRoles();
     }
 
     @RequestMapping(value = "/secretadminpage", method = RequestMethod.GET)
