@@ -1,0 +1,59 @@
+body {
+    width: 100%;
+    background-color: #f8f9fa;
+}
+
+.form-group {
+    margin-bottom: 0;
+}
+
+.row {
+    margin: 0 0 0 0;
+}
+
+.container-fluid {
+    padding: 0;
+    height: 100%;
+}
+
+.username {
+    font-weight: bolder;
+}
+
+.navbar {
+    padding: 2px 7px 0 20px;
+}
+
+.sidebar {
+    width: 237px;
+    background-color: #ffffff;
+    padding-top: 25px;
+}
+
+.content {
+    height: 899px;
+}
+
+.admin_panel {
+    margin-bottom: 11px;
+}
+
+.btn-secondary,
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-secondary:hover,
+.btn-secondary:focus {
+    border-color: #dee2e6;
+}
+
+.tables_name_panel {
+    padding: 14px 0 0 19px;
+    background-color: #f7f7f7;
+}
+
+.table_container {
+    padding: 1.5rem;
+    margin-right: 0;
+    margin-left: 0;
+    border-width: .2rem;
+    background-color: #fff;
+}
