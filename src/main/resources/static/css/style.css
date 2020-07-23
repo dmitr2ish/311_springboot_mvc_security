@@ -3,6 +3,10 @@ body {
     background-color: #f8f9fa;
 }
 
+.container-hidden {
+    display: none;
+}
+
 .form-group {
     margin-bottom: 0;
 }

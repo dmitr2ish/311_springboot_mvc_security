@@ -1,11 +1,74 @@
 const ROLES = ['ADMIN', 'USER'];
 
 $(function () {
+
+
+    $.ajax({
+        url: '/api/user/currentUser',
+        type: 'GET',
+        success: function (user) {
+            let roles = user.roles.map(role => role.name);
+            console.log("roles:");
+            console.log(roles);
+             if(roles.includes("ADMIN") && roles.includes("USER")){
+
+                 $('#admin-tab').on('click', event => showAdmin(event));
+                 $('#user-tab').on('click', event => showUser(event));
+
+                 $('#user-container').addClass('container-hidden');
+
+                 updateUserTable();
+
+                 $('#save').on('click', event => saveUser(event));
+                 $('#edit').on('click', event => editUser(event));
+                 $('#delete').on('click', event => deleteUser(event));
+             } else if(roles.includes("ADMIN") && !roles.includes("USER")) {
+                 $('#user-container').addClass('container-hidden');
+
+                 updateUserTable();
+
+                 $('#save').on('click', event => saveUser(event));
+                 $('#edit').on('click', event => editUser(event));
+                 $('#delete').on('click', event => deleteUser(event));
+             } else {
+                 $('#admin-container').addClass('container-hidden');
+
+                 $('#user-tab').addClass('btn-primary').removeClass('btn-link');
+
+                 getInformationUser();
+             }
+        }
+    })
+})
+
+function showAdmin(e) {
+    e.preventDefault();
+
+    $('#user-tab').removeClass('btn-primary').addClass('btn-link');
+    $('#admin-tab').addClass('btn-primary').removeClass('btn-link');
+
+    $('#user-container').addClass('container-hidden');
+    $('#admin-container').removeClass('container-hidden');
+
     updateUserTable();
+
     $('#save').on('click', event => saveUser(event));
     $('#edit').on('click', event => editUser(event));
     $('#delete').on('click', event => deleteUser(event));
-})
+}
+
+function showUser(e) {
+    e.preventDefault();
+
+    $('#admin-tab').removeClass('btn-primary').addClass('btn-link');
+    $('#user-tab').addClass('btn-primary').removeClass('btn-link');
+
+    $('#admin-container').addClass('container-hidden');
+    $('#user-container').removeClass('container-hidden');
+
+    getInformationUser();
+}
+
 
 function saveUser(e) {
     e.preventDefault();
@@ -119,11 +182,34 @@ function updateUserTable() {
                                     <td>" + user.age + "</td> \
                                     <td>" + user.email + "</td> \
                                     <td>" + user.roles.map(role => role.name).join(' ') + "</td> \
-                                    <td><button type='button' class='btn btn-info' onclick='editUserForm(" + user.id + ")'>Edit</button><td> \
-                                    <td><button type='button' class='btn btn-danger' onclick='deleteUserForm(" + user.id + ")'>Delete</button><td> \
+                                    <td><button type='button' class='btn btn-info' onclick='editUserForm(" + user.id + ")'>Edit</button></td> \
+                                    <td><button type='button' class='btn btn-danger' onclick='deleteUserForm(" + user.id + ")'>Delete</button></td> \
                              </tr>"))
         }
     });
+}
+
+function getInformationUser() {
+    $('#infoAboutUser').empty();
+    $.ajax({
+        type: 'GET',
+        url: '/api/user/currentUser',
+        success: function (user) {
+            console.log("user: ")
+            console.log(user)
+            $('#infoAboutUser').append(
+                    "<tr>" +
+                    "<td>"+ user.id +"</td>" +
+                    "<td>"+ user.firstName +"</td>" +
+                    "<td>"+ user.lastName +"</td>" +
+                    "<td>"+ user.age +"</td>" +
+                    "<td>"+ user.email +"</td>" +
+                    "<td>"+ user.roles.map(role => role.name).join('; ') +"</td>" +
+                    "</tr>"
+                )
+
+        }
+    })
 }
 
 function deleteUserForm(id) {
